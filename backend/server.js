@@ -6,10 +6,10 @@ const connectDB = require("./utils/dbConnection");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(express.json());
 // Connect to MongoDB
 connectDB();
 
-app.use(express.json());
 app.use("/api/vehicles", vehicleRoutes);
 
 app.get('/', (req, res)=> {

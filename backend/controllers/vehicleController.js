@@ -22,8 +22,8 @@ const createVehicle = async (req, res) => {
 
 const addBooking = async (req, res) => {
   try {
-    const { vehicleId } = req.params;
-    const bookingData = req.body; 
+    const { vehicleId } = req.body;
+    const {bookingData} = req.body; 
     const vehicle = await vehicleService.addNewBookingInVehicle(vehicleId, bookingData);
     res.status(200).json(vehicle);
   } catch (err) {
@@ -34,8 +34,8 @@ const addBooking = async (req, res) => {
 
 const getAvailableVehicles = async (req, res) => {
   try {
-    const filters = req.query; 
-
+    const filters = req.body; 
+    
     const startTime = new Date(filters.startTime);
     const estimatedRideDurationHours = Math.abs(
       parseInt(filters.toPincode) - parseInt(filters.fromPincode)
@@ -50,7 +50,16 @@ const getAvailableVehicles = async (req, res) => {
       toPincode: filters.toPincode
     });
 
-    res.status(200).json(vehicles);
+    res.status(200).json({
+      filters: {
+        startTime: startTime.toISOString(),
+        endTime: endTime.toISOString(),
+        capacity: filters.requiredCapacity,
+        fromPincode: filters.fromPincode,
+        toPincode: filters.toPincode
+      },
+      vehicles
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

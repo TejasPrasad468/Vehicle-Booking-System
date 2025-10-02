@@ -9,6 +9,6 @@ router.post("/", vehicleController.createVehicle);
 
 router.post("/bookings", vehicleController.addBooking);
 
-router.get("/available", vehicleController.getAvailableVehicles);
+router.post("/available", vehicleController.getAvailableVehicles);
 
 module.exports = router;

@@ -10,7 +10,7 @@ const createVehicle = async (data) => {
 };
 
 const addNewBookingInVehicle = async (vehicleId, bookingData) => {
-  const vehicle = await Vehicle.findById(vehicleId);
+  const vehicle = await Vehicle.findOne({ vehicleNumber: vehicleId });
   if (!vehicle) throw new Error("Vehicle not found");
 
   const { startTime, endTime, fromPincode, toPincode } = bookingData;
@@ -29,7 +29,7 @@ const addNewBookingInVehicle = async (vehicleId, bookingData) => {
 };
 
 const getAllAvailableVehicles = async ({ requiredCapacity, startTime, endTime }) => {
-  const vehicles = await Vehicle.find({ capacityKg: { $gte: requiredCapacity } });
+  const vehicles = await Vehicle.find({ capacityNo: { $gte: requiredCapacity } });
 
   const availableVehicles = vehicles.filter(vehicle => {
     const hasConflict = vehicle.isBooked.some(b =>

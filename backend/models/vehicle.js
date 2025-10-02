@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 
 const bookedSchema = new mongoose.Schema({
+  customerName : { type: String, required: true},
+  customerPhone: { type: String, required: true },
   startTime: { type: Date, required: true },
   endTime: { type: Date, required: true },
   fromPincode: { type: String, required: true },
@@ -13,7 +15,7 @@ const vehicleSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  capacityKg: {
+  capacityNo: {
     type: Number,
     required: true
   },
