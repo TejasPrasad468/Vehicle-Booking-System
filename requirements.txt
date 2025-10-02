@@ -1,0 +1,65 @@
+Frontend: 
+    1. Add new vehicles
+    2. search vehicle based on route, start-end time
+
+Backend:
+    1. Vehicle fleet
+    2. Availability acc to 
+        a. capacity
+        b. route
+        c. time
+    3. Handle booking
+
+Testing 
+    1. unit testing on backend
+
+
+My approach
+
+Vehicle adding flow (Only to Admin means for owner)
+    Frontend
+        1. Click on Add vehicle option (Only to Admin means for owner)
+        2. Add details
+            a. Vehicle Number
+            b. Vehicle capacities
+            c. Vehicle driver name
+            d. Vehicle driver contact Number
+        3. Click on save
+
+    Backend (POST /api/vehicles)
+        4. Add detail in database
+
+Check Availability flow (To simple user who logged in there)
+    Frontend
+        1. Click on Check Availability of vehicle (To simple user who logged in there)
+        2. Filtering using travel details
+            a. capacity
+            b. start time
+            c. From Picode
+            d. To Picode
+
+    Backend (GET /api/vehicles/available)
+        3. Use formula in controller and filter out all vehicle which satisfy all this condition
+            a. estimatedRideDurationHours = Math.abs(parseInt(toPincode) - parseInt(fromPincode)) %
+                24 (Take the absolute difference of pincode numbers, modulo
+                24 to keep it within a day - treat this as hours).
+            b. endTime = startTime + estimatedRideDurationHours.
+            c.  capacityKg >= capacityRequired.
+        4. send all filterec Vehicles to Frontend
+
+Book Vehicle  (To simple user who logged in there)
+    Frontend
+        1. See all Available vehicle after Filtering
+        2. Click on Book this vehicle
+        3. Add customer details acc to this vehicle
+            a. customer name
+            b. customer phone numbers
+            c. capacity (already filled)
+            d. startTime (already filled)
+            e. endTime (already filled)
+            f. fromPincode (already filled)
+            g. toPincode (already filled)
+
+    Backend 
+        4. Book the vehicle in database
+
