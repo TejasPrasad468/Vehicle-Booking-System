@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require('express');
 const vehicleRoutes = require("./routes/vehicleRoutes");
+const userRoutes = require("./routes/userRoutes");
 const connectDB = require("./utils/dbConnection");
 
 const app = express();
@@ -11,6 +12,7 @@ app.use(express.json());
 connectDB();
 
 app.use("/api/vehicles", vehicleRoutes);
+app.use("/api/users", userRoutes);
 
 app.get('/', (req, res)=> {
     res.send("Hello This is vehicle APIs");

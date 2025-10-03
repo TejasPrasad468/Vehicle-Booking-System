@@ -9,7 +9,6 @@ const getAllVehicles = async (req, res) => {
   }
 };
 
-
 const createVehicle = async (req, res) => {
   try {
     const vehicle = await vehicleService.createVehicle(req.body);
@@ -19,10 +18,9 @@ const createVehicle = async (req, res) => {
   }
 };
 
-
 const addBooking = async (req, res) => {
   try {
-    const { vehicleId } = req.body;
+    const {vehicleId} = req.body;
     const {bookingData} = req.body; 
     const vehicle = await vehicleService.addNewBookingInVehicle(vehicleId, bookingData);
     res.status(200).json(vehicle);
@@ -30,7 +28,6 @@ const addBooking = async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 };
-
 
 const getAvailableVehicles = async (req, res) => {
   try {
