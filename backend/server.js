@@ -3,10 +3,16 @@ const express = require('express');
 const vehicleRoutes = require("./routes/vehicleRoutes");
 const userRoutes = require("./routes/userRoutes");
 const connectDB = require("./utils/dbConnection");
+const cors = require('cors');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
+app.use(cors({
+  origin: 'http://localhost:3000', // your frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true // if using cookies or sessions
+}));
 app.use(express.json());
 // Connect to MongoDB
 connectDB();
