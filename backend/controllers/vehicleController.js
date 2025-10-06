@@ -46,7 +46,7 @@ const getAvailableVehicles = async (req, res) => {
       fromPincode: filters.fromPincode,
       toPincode: filters.toPincode
     });
-
+    // console.log()
     res.status(200).json({
       filters: {
         startTime: startTime.toISOString(),

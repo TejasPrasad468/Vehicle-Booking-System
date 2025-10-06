@@ -11,6 +11,7 @@ export const generateToken = (user) => {
     id: user._id || user.id,
     username: user.userName || user.username,
   };
+  // console.log()
 
   return jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
 };

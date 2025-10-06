@@ -8,6 +8,7 @@ const bookedSchema = new mongoose.Schema({
   fromPincode: { type: String, required: true },
   toPincode: { type: String, required: true }
 }, { _id: false }); // _id false to avoid extra ids for subdocuments
+// console.log()
 
 const vehicleSchema = new mongoose.Schema({
   vehicleNumber: {

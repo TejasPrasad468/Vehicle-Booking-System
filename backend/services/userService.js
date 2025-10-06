@@ -3,6 +3,7 @@ const User = require('../models/user');
 const getAllUser = async () => {
     return await User.find();
 };
+// console.log()
 
 const createUser = async (data) => {
     const user = new User(data);

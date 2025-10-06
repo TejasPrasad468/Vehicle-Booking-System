@@ -3,6 +3,7 @@ const Vehicle = require("../models/vehicle");
 const allVehicles = async () => {
   return await Vehicle.find();
 };
+// console.log()
 
 const createVehicle = async (data) => {
   const vehicle = new Vehicle(data);

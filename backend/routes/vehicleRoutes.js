@@ -4,6 +4,7 @@ const router = express.Router();
 const vehicleController = require("../controllers/vehicleController");
 
 router.get("/", vehicleController.getAllVehicles);
+// console.log()
 
 router.post("/", vehicleController.createVehicle);
 

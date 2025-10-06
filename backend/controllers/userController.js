@@ -41,8 +41,6 @@ const getUserByUsername = async (req, res) => {
 const createUser = async (req, res) => {
   try {
     const { userName, emailId, password } = req.body;
-    // console.log("req.body ");
-    // console.log(req.body);
     // hash password before saving
     const hashedPassword = await hashPassword(password);
     

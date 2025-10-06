@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 
 const SALT_ROUNDS = process.env.SALT_ROUNDS || 10;
+// console.log()
 
 async function hashPassword(password) {
   // console.log("SALT ROUND = " + SALT_ROUNDS);

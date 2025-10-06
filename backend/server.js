@@ -4,6 +4,7 @@ const vehicleRoutes = require("./routes/vehicleRoutes");
 const userRoutes = require("./routes/userRoutes");
 const connectDB = require("./utils/dbConnection");
 const cors = require('cors');
+// console.log()
 
 const app = express();
 const PORT = process.env.PORT || 5000;

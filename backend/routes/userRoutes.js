@@ -4,6 +4,7 @@ const router = express.Router();
 const userController = require("../controllers/userController");
 
 router.get("/getalluser", userController.getAllUser);
+// console.log()
 
 router.post("/getuser", userController.getUserByUsername);
 
