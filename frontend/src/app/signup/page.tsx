@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { ENDPOINTS } from "@/config/api";
 
 export default function SignupPage() {
     const [username, setUsername] = useState('');
@@ -16,7 +17,8 @@ export default function SignupPage() {
             alert("Password Not Matched");
             return;
         }
-        const res = fetch('http://localhost:5000/api/users/create', {
+        // const res = fetch('http://localhost:5000/api/users/create', {
+        const res = fetch(ENDPOINTS.userCreate, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json', 

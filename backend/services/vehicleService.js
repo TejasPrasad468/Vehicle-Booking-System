@@ -11,26 +11,63 @@ const createVehicle = async (data) => {
 };
 
 const addNewBookingInVehicle = async (vehicleId, bookingData) => {
-  const vehicle = await Vehicle.findOne({ vehicleNumber: vehicleId });
-  if (!vehicle) throw new Error("Vehicle not found");
+  try {
+    if (!vehicleId) {
+      throw new Error("Vehicle ID is required");
+    }
 
-  const { startTime, endTime, fromPincode, toPincode } = bookingData;
+    if (!bookingData || !bookingData.startTime || !bookingData.endTime) {
+      throw new Error("Booking data with startTime and endTime is required");
+    }
 
-  const isConflict = vehicle.isBooked.some(b =>
-    (new Date(startTime) < b.endTime && new Date(endTime) > b.startTime)
-  );
+    const vehicle = await Vehicle.findOne({ vehicleNumber: vehicleId });
+    if (!vehicle) {
+      throw new Error(`Vehicle with ID ${vehicleId} not found`);
+    }
+    console.log("Vehicle found =", vehicle.vehicleNumber);
 
-  if (isConflict) {
-    throw new Error("Vehicle already booked for this time range");
+    const { customerName, customerPhone, startTime, endTime, fromPincode, toPincode } = bookingData;
+
+    // Validate booking fields
+    if (!customerName || !customerPhone || !fromPincode || !toPincode) {
+      throw new Error("All booking fields (customerName, customerPhone, fromPincode, toPincode) are required");
+    }
+
+    const start = new Date(startTime);
+    const end = new Date(endTime);
+    if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+      throw new Error("Invalid startTime or endTime");
+    }
+
+    // Check for time conflicts
+    const isConflict = vehicle.isBooked.some(
+      (b) => start < new Date(b.endTime) && end > new Date(b.startTime)
+    );
+
+    if (isConflict) {
+      throw new Error("Vehicle already booked for this time range");
+    }
+
+    // Add new booking
+    const newBooking = { customerName, customerPhone, startTime: start, endTime: end, fromPincode, toPincode };
+    vehicle.isBooked.push(newBooking);
+    await vehicle.save();
+
+    console.log("✅ Booking saved for:", vehicle.vehicleNumber);
+    return { success: true, vehicle, booking: newBooking };
+  } 
+  catch (error) {
+    console.error("Error adding new booking:", error.message);
+    // Throw error to be handled in route/controller
+    throw new Error(error.message || "Failed to add booking");
   }
-
-  vehicle.isBooked.push({ startTime, endTime, fromPincode, toPincode });
-  await vehicle.save();
-  return vehicle;
 };
 
 const getAllAvailableVehicles = async ({ requiredCapacity, startTime, endTime }) => {
+  console.log("here4")
+  console.log(requiredCapacity);
   const vehicles = await Vehicle.find({ capacityNo: { $gte: requiredCapacity } });
+    console.log("here5")
 
   const availableVehicles = vehicles.filter(vehicle => {
     const hasConflict = vehicle.isBooked.some(b =>

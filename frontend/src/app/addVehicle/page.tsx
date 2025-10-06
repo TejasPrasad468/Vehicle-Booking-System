@@ -1,6 +1,7 @@
 "use client";
 import { useState, ChangeEvent, FormEvent } from "react";
 import { useRouter } from "next/navigation";
+import { ENDPOINTS } from "@/config/api";
 
 interface Vehicle {
     vehicleNumber: string;
@@ -33,7 +34,8 @@ export default function AddVehicle() {
         setMessage(null);
 
         try {
-            const res = await fetch("http://localhost:5000/api/vehicles", {
+            // const res = await fetch("http://localhost:5000/api/vehicles", {
+            const res = await fetch(ENDPOINTS.vehicles, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

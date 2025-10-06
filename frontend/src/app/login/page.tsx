@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { ENDPOINTS } from "@/config/api";
 
 export default function LoginPage() {
     // useEffect(() => {
@@ -13,7 +14,8 @@ export default function LoginPage() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        const res = fetch('http://localhost:5000/api/users/getuser', {
+        // const res = fetch('http://localhost:5000/api/users/getuser', {
+        const res = fetch(ENDPOINTS.getUser, {
             method: 'POST',         
             headers: {
                 'Content-Type': 'application/json',

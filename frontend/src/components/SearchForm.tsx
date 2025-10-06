@@ -45,12 +45,12 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
         className="border p-2 rounded w-full"
       />
       <input
-        type="time"
+        type="datetime-local"
         name="startTime"
         placeholder="Start Time"
         value={filters.startTime}
         onChange={handleChange}
-        className="border p-2 rounded w-full"
+        className="w-full px-3 py-2 border rounded"
       />
       <input
         type="text"

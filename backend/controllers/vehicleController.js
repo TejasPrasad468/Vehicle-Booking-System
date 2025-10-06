@@ -31,31 +31,39 @@ const addBooking = async (req, res) => {
 
 const getAvailableVehicles = async (req, res) => {
   try {
-    const filters = req.body; 
-    
-    const startTime = new Date(filters.startTime);
+    const filters = req.body.filters;
+    console.log("filters =", JSON.stringify(filters));
+
+    const startTime = new Date(filters.startTime); // directly parse the ISO string
+    console.log("startTime =", startTime);
+
+    // Calculate estimated ride duration in hours
     const estimatedRideDurationHours = Math.abs(
       parseInt(filters.toPincode) - parseInt(filters.fromPincode)
     ) % 24;
-    const endTime = new Date(startTime.getTime() + estimatedRideDurationHours * 60 * 60 * 1000);
 
+    console.log("estimatedRideDurationHours =", estimatedRideDurationHours);
+
+    const endTime = new Date(startTime.getTime() + estimatedRideDurationHours * 60 * 60 * 1000);
+    console.log("endTime =", endTime);
+    
     const vehicles = await vehicleService.getAllAvailableVehicles({
-      requiredCapacity: parseInt(filters.requiredCapacity),
+      requiredCapacity: parseInt(filters.capacity),
       startTime,
       endTime
     });
-    // console.log()
     res.status(200).json({
       filters: {
         startTime: startTime.toISOString(),
         endTime: endTime.toISOString(),
-        capacity: filters.requiredCapacity,
+        capacity: filters.capacity,
         fromPincode: filters.fromPincode,
         toPincode: filters.toPincode
       },
       vehicles
     });
   } catch (err) {
+    console.log("error");
     res.status(500).json({ error: err.message });
   }
 };

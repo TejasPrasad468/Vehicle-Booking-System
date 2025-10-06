@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import SearchForm, { Filters } from "@/components/SearchForm";
 import VehicleCard, { Vehicle } from "@/components/vehicleCard";
 import axios from "axios";
+import { ENDPOINTS } from "@/config/api";
 
 const VehicleSearchPage: React.FC = () => {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
@@ -20,13 +21,16 @@ const VehicleSearchPage: React.FC = () => {
     try {
       setLoading(true);
       setFilters(searchFilters);
+      console.log("searchFilters " + searchFilters);
 
       const res = await axios.post<{
         filters: any;
         vehicles: Vehicle[];
-      }>("/api/vehicles/search", { filters: searchFilters });
-
+      // }>("http://localhost:5000/api/vehicles/available", { filters: searchFilters });
+      }>(ENDPOINTS.availableVehicles, { filters: searchFilters });
+      console.log("res.data " + JSON.stringify(res.data.vehicles));
       setVehicles(res.data.vehicles);
+      setFilters(res.data.filters);
     } catch (err) {
       console.error(err);
     } finally {
