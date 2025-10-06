@@ -42,9 +42,7 @@ const getAvailableVehicles = async (req, res) => {
     const vehicles = await vehicleService.getAllAvailableVehicles({
       requiredCapacity: parseInt(filters.requiredCapacity),
       startTime,
-      endTime,
-      fromPincode: filters.fromPincode,
-      toPincode: filters.toPincode
+      endTime
     });
     // console.log()
     res.status(200).json({

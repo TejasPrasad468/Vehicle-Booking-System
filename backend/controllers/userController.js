@@ -16,7 +16,8 @@ const getUserByUsername = async (req, res) => {
     // console.log("req " + JSON.stringify(req.body));
     // find user
     const user = await userService.getUserByUsername(userName);
-    // console.log("user " + user);
+    // console.log("user " + JSON.stringify(user));
+    // console.log("user " + user.password);
     
     if (!user) {
       // console.log("user 2 ");

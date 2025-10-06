@@ -11,7 +11,7 @@ const createUser = async (data) => {
 };
 
 const getUserByUsername = async (userName) => {
-    return await User.find({userName});
+    return await User.findOne({userName});
 };
 
 module.exports = {
