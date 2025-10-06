@@ -21,7 +21,8 @@ const addNewBookingInVehicle = async (vehicleId, bookingData) => {
     }
 
     const vehicle = await Vehicle.findOne({ vehicleNumber: vehicleId });
-    if (!vehicle) {
+    if (!vehicle) 
+    {
       throw new Error(`Vehicle with ID ${vehicleId} not found`);
     }
     console.log("Vehicle found =", vehicle.vehicleNumber);
