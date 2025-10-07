@@ -1,4 +1,4 @@
-export const API_BASE_URL = "https://vehicle-booking-system.onrender.com/";
+export const API_BASE_URL = "https://vehicle-booking-system.onrender.com";
 
 // Optional: define endpoints
 export const ENDPOINTS = {
