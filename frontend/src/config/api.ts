@@ -1,5 +1,4 @@
-require('dotenv').config();
-export const API_BASE_URL = process.env.BACKEND_API || "https://vehicle-booking-system.onrender.com/";
+export const API_BASE_URL = "https://vehicle-booking-system.onrender.com/";
 
 // Optional: define endpoints
 export const ENDPOINTS = {
