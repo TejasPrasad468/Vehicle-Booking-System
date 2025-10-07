@@ -1,4 +1,5 @@
-export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5000/api";
+require('dotenv').config();
+export const API_BASE_URL = process.env.BACKEND_API || "https://vehicle-booking-system.onrender.com/";
 
 // Optional: define endpoints
 export const ENDPOINTS = {
