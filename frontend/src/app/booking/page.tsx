@@ -1,11 +1,26 @@
-"use client";
+"use client"; // Must be the first line
+
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { ENDPOINTS } from "@/config/api";
 
+interface BookingData {
+  vehicleNumber: string;
+  driverName: string;
+  driverPhone: string;
+  capacity: number;
+  startTime: string;
+  endTime: string;
+  fromPincode: string;
+  toPincode: string;
+  customerName: string;
+  customerPhone: string;
+}
+
 const BookingPage: React.FC = () => {
   const searchParams = useSearchParams();
-  const [bookingData, setBookingData] = useState({
+
+  const [bookingData, setBookingData] = useState<BookingData>({
     vehicleNumber: "",
     driverName: "",
     driverPhone: "",
@@ -14,26 +29,27 @@ const BookingPage: React.FC = () => {
     endTime: "",
     fromPincode: "",
     toPincode: "",
-    customerName: "",   // new field
-    customerPhone: "",  // new field
+    customerName: "",
+    customerPhone: "",
   });
 
   const [message, setMessage] = useState<string | null>(null);
 
+  // Update bookingData from URL params (client-side)
   useEffect(() => {
-    if (searchParams) {
-      setBookingData((prev) => ({
-        ...prev,
-        vehicleNumber: searchParams.get("vehicleNumber") || "",
-        driverName: searchParams.get("driverName") || "",
-        driverPhone: searchParams.get("driverPhone") || "",
-        capacity: Number(searchParams.get("capacity")) || 0,
-        startTime: searchParams.get("startTime") || "",
-        endTime: searchParams.get("endTime") || "",
-        fromPincode: searchParams.get("fromPincode") || "",
-        toPincode: searchParams.get("toPincode") || "",
-      }));
-    }
+    if (!searchParams) return;
+
+    setBookingData((prev) => ({
+      ...prev,
+      vehicleNumber: searchParams.get("vehicleNumber") || "",
+      driverName: searchParams.get("driverName") || "",
+      driverPhone: searchParams.get("driverPhone") || "",
+      capacity: Number(searchParams.get("capacity")) || 0,
+      startTime: searchParams.get("startTime") || "",
+      endTime: searchParams.get("endTime") || "",
+      fromPincode: searchParams.get("fromPincode") || "",
+      toPincode: searchParams.get("toPincode") || "",
+    }));
   }, [searchParams]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,9 +76,6 @@ const BookingPage: React.FC = () => {
         },
       };
 
-      console.log("Booking payload:", payload);
-
-      // const response = await fetch("http://localhost:5000/api/vehicles/bookings", {
       const response = await fetch(ENDPOINTS.bookings, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -94,7 +107,7 @@ const BookingPage: React.FC = () => {
         <p>From: {bookingData.fromPincode}</p>
         <p>To: {bookingData.toPincode}</p>
 
-        {/* New input fields */}
+        {/* Customer inputs */}
         <input
           type="text"
           name="customerName"
