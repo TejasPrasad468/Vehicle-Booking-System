@@ -10,7 +10,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors({
-  origin: 'https://vehicle-booking-system-1.onrender.com/', // your frontend URL
+  origin: 'https://vehicle-booking-system-1.onrender.com', // your frontend URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true // if using cookies or sessions
 }));
